@@ -9,7 +9,7 @@ import { Sale } from '../../models/sale';
 
 function SalesCard() {
 
-    const min = new Date(new Date().setDate(new Date().getDate() - 365));
+    const min = new Date(new Date().setDate(new Date().getDate() - 1));
 
     const [minDate, setMinDate] = useState(min);
     const [maxDate, setMaxDate] = useState(new Date());
@@ -19,8 +19,6 @@ function SalesCard() {
 
         const dmin = minDate.toISOString().slice(0, 10);
         const dmax = maxDate.toISOString().slice(0, 10);
-
-        console.log(dmin);
 
         axios.get(`${BASE_URL}/sales?minDate=${dmin}&maxDate=${dmax}`)
             .then(response => {
@@ -76,7 +74,7 @@ function SalesCard() {
                                     <td>R$ {sale.amount.toFixed(2)}</td>
                                     <td>
                                         <div className="dsmeta-red-btn-container">
-                                            <NotificationButton />
+                                            <NotificationButton saleId={sale.id} />
                                         </div>
                                     </td>
                                 </tr>
